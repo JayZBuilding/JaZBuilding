@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const images = document.querySelectorAll(".carousel-image");
     const prevButton = document.getElementById("prev");
     const nextButton = document.getElementById("next");
+    const viewMoreButtons = document.querySelectorAll(".view-more");
 
     let index = 0;
     const totalImages = images.length;
@@ -45,6 +46,15 @@ document.addEventListener("DOMContentLoaded", () => {
     prevButton.addEventListener("click", () => {
         prevImage();
         stopAutoSlide();
+    });
+
+    viewMoreButtons.forEach((button, index) => {
+        button.addEventListener("click", (event) => {
+            event.preventDefault(); // Prevent default anchor behavior
+            const imageAlt = document.querySelectorAll(".carousel-image")[index].alt; // Get alt text
+            const altEncoded = encodeURIComponent(imageAlt); // Encode for URL safety
+            window.location.href = `details/details.html?image=${altEncoded}`;
+        });
     });
 
     // Start the auto-slideshow
